@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +18,8 @@ import cn.ucai.live.data.model.LiveSettings;
 import cn.ucai.live.R;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.widget.EaseImageView;
 
 public class MyProfileFragment extends Fragment {
     Unbinder unbinder;
@@ -25,6 +28,8 @@ public class MyProfileFragment extends Fragment {
     //@BindView(R.id.frame_rate)
     //TextView frameRateText;
     @BindView(R.id.tv_username) TextView usernameView;
+    @BindView(R.id.iv_avatar)
+    EaseImageView userAvatar;
 
     LiveSettings liveSettings;
 
@@ -40,8 +45,9 @@ public class MyProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        usernameView.setText(EMClient.getInstance().getCurrentUser());
-
+       // usernameView.setText(EMClient.getInstance().getCurrentUser());
+        EaseUserUtils.setAppUserAvatar(getContext(),EMClient.getInstance().getCurrentUser(),userAvatar);
+        EaseUserUtils.setAppUserNick(EMClient.getInstance().getCurrentUser(),usernameView);
 
         //liveSettings = new LiveSettings(getContext());
         //final String[] bitrateArr = getResources().getStringArray(R.array.bitrate_types);
