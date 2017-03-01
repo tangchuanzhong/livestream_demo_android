@@ -48,7 +48,7 @@ import static cn.ucai.live.data.TestDataRepository.anchorIds;
  */
 public class LiveListFragment extends Fragment {
     //private ProgressBar pb;
-    private ListView listView;
+    //private ListView listView;
     private LiveAdapter adapter;
     private List<EMChatRoom> chatRoomList;
     private boolean isLoading;
@@ -91,7 +91,7 @@ public class LiveListFragment extends Fragment {
         recyclerView.setLayoutManager(gm);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new GridMarginDecoration(6));
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
 //        footLoadingLayout = (LinearLayout) footView.findViewById(R.id.loading_layout);
 //        footLoadingPB = (ProgressBar)footView.findViewById(R.id.loading_bar);
@@ -143,12 +143,10 @@ public class LiveListFragment extends Fragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState==AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
-                    if (pageCount!=0){
                         int lasPos=gm.findLastVisibleItemPosition();
-                        if(hasMoreData && !isLoading && lasPos == listView.getCount()-1){
+                        if(hasMoreData && !isLoading && lasPos == chatRoomList.size()-1){
                             loadAndShowData();
                         }
-                    }
                 }
             }
 
@@ -184,7 +182,7 @@ public class LiveListFragment extends Fragment {
                                 //pb.setVisibility(View.INVISIBLE);
                                 isFirstLoading = false;
                                 adapter = new LiveAdapter(getContext(),getLiveRoomList(chatRoomList));
-                                // listView.setAdapter(adapter);
+                                recyclerView.setAdapter(adapter);
                                 //rooms.addAll(chatRooms);
                             }else{
                                 if(chatRooms.size() < pagesize){
