@@ -96,11 +96,23 @@ public class StartLiveActivity extends LiveBaseActivity
             userAvatar);
     EaseUserUtils.setAppUserNick(EMClient.getInstance().getCurrentUser(),usernameView);
 
+    String id=getIntent().getStringExtra("liveId");
+    if (id!=null&& !id.equals("")){
+      liveId=id;
+      chatroomId=id;
+      initEnv();
+    }else {
+
 //    liveId = TestDataRepository.getLiveRoomId(EMClient.getInstance().getCurrentUser());
 //    chatroomId = TestDataRepository.getChatRoomId(EMClient.getInstance().getCurrentUser());
 //    anchorId = EMClient.getInstance().getCurrentUser();
 //    //usernameView.setText(anchorId);
-       initEnv();
+      pd = new ProgressDialog(StartLiveActivity.this);
+      pd.setMessage("创建直播...");
+      pd.show();
+      createLive();
+    }
+//       initEnv();
   }
 
   public void initEnv() {
@@ -179,14 +191,11 @@ public class StartLiveActivity extends LiveBaseActivity
    * 开始直播
    */
   @OnClick(R.id.btn_start) void startLive() {
-    pd=new ProgressDialog(StartLiveActivity.this);
-    pd.setMessage("创建直播...");
-    pd.show();
-    createLive();
     //demo为了测试方便，只有指定的账号才能开启直播
-    if (liveId == null) {
+    if (liveId == null||liveId.equals("")) {
       return;
     }
+    startLiveByChatRoom();
   }
 
   private void startLiveByChatRoom(){
@@ -220,10 +229,11 @@ public class StartLiveActivity extends LiveBaseActivity
           boolean success=false;
           pd.dismiss();
             if (s!=null){
-             List<String> ids= ResultUtils.getEMResultFromJson(s,String.class);
-              if (ids!=null&&ids.size()>0){
-                initLive(ids.get(0));
-                startLiveByChatRoom();
+             String id= ResultUtils.getEMResultFromJson(s);
+              if (id!=null){
+                success=true;
+                initLive(id);
+               // startLiveByChatRoom();
               }
             }
           if (!success){
@@ -233,10 +243,12 @@ public class StartLiveActivity extends LiveBaseActivity
 
         @Override
         public void onError(String error) {
+          pd.dismiss();
           CommonUtils.showShortToast("创建直播失败!"+error);
         }
       });
     }else {
+      pd.dismiss();
       CommonUtils.showShortToast("当前用户信息获取失败!");
     }
   }
