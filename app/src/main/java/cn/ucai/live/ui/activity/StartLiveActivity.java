@@ -324,7 +324,7 @@ public class StartLiveActivity extends LiveBaseActivity
     View view = liveEndLayout.inflate();
     Button closeConfirmBtn = (Button) view.findViewById(R.id.live_close_confirm);
     TextView nameView = (TextView) view.findViewById(R.id.finish_tv_username);
-    TextView showTimeView = (TextView) view.findViewById(R.id.finish_tv_username);
+    TextView showTimeView = (TextView) view.findViewById(R.id.finish_show_time);
     EaseImageView userAvatar = (EaseImageView) view.findViewById(R.id.finish_eiv_avatar);
     EaseUserUtils.setAppUserAvatar(StartLiveActivity.this,EMClient.getInstance().getCurrentUser(),userAvatar);
     EaseUserUtils.setAppUserNick(EMClient.getInstance().getCurrentUser(),nameView);
