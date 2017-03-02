@@ -93,7 +93,7 @@ public class LiveListFragment extends Fragment {
         recyclerView.setLayoutManager(gm);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new GridMarginDecoration(6));
-        //recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         mSrl= (SwipeRefreshLayout) getView().findViewById(R.id.srl);
         mTvRefresh= (TextView) getView().findViewById(R.id.tv_refresh);
 
@@ -208,17 +208,16 @@ public class LiveListFragment extends Fragment {
                             if(isFirstLoading){
                                 //pb.setVisibility(View.INVISIBLE);
                                 isFirstLoading = false;
-                                adapter = new LiveAdapter(getContext(),getLiveRoomList(chatRoomList));
-                                recyclerView.setAdapter(adapter);
+                                adapter.initData(getLiveRoomList(chatRoomList));
+                                //recyclerView.setAdapter(adapter);
                                 //rooms.addAll(chatRooms);
-                            }else{
+                            }
+                                adapter.notifyDataSetChanged();
                                 if(chatRooms.size() < pagesize){
                                     hasMoreData = false;
                                     footLoadingLayout.setVisibility(View.VISIBLE);
                                     footLoadingPB.setVisibility(View.GONE);
                                     footLoadingText.setText("没有更多数据了");
-                                }
-                                adapter.notifyDataSetChanged();
                             }
                             isLoading = false;
                         }
@@ -279,7 +278,7 @@ public class LiveListFragment extends Fragment {
                     LiveRoom room=liveRoomList.get(position);
                     if (room.getAnchorId().equals(EMClient.getInstance().getCurrentUser())){
                         context.startActivity(new Intent(context, StartLiveActivity.class)
-                                .putExtra("liveroom",room.getId()));
+                                .putExtra("liveroom",liveRoomList.get(position)));
                     }else {
                         context.startActivity(new Intent(context, LiveDetailsActivity.class)
                                 .putExtra("liveroom", liveRoomList.get(position)));
@@ -303,6 +302,13 @@ public class LiveListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return liveRoomList.size();
+        }
+
+        public void initData(List<LiveRoom> list) {
+            if (liveRoomList!=null)
+                liveRoomList.clear();
+            liveRoomList.addAll(list);
+            notifyDataSetChanged();
         }
     }
 
