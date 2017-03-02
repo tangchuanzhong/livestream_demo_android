@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.live.R;
 import cn.ucai.live.data.NetDao;
+import cn.ucai.live.data.model.LiveRoom;
 import cn.ucai.live.data.model.LiveSettings;
 import cn.ucai.live.utils.CommonUtils;
 import cn.ucai.live.utils.Log2FileUtil;
@@ -76,6 +78,7 @@ public class StartLiveActivity extends LiveBaseActivity
 
   boolean isStarted;
   long startTime;
+  long endTime;
 
   private Handler handler = new Handler() {
     @Override public void handleMessage(Message msg) {
@@ -95,10 +98,10 @@ public class StartLiveActivity extends LiveBaseActivity
             userAvatar);
     EaseUserUtils.setAppUserNick(EMClient.getInstance().getCurrentUser(),usernameView);
 
-    String id=getIntent().getStringExtra("liveId");
-    if (id!=null&& !id.equals("")){
-      liveId=id;
-      chatroomId=id;
+    LiveRoom liveRoom=getIntent().getParcelableExtra("liveroom");
+    if (liveRoom!=null){
+      liveId=liveRoom.getId();
+      chatroomId=liveRoom.getChatroomId();
      // initEnv();
     }else {
         liveId=EMClient.getInstance().getCurrentUser();
@@ -230,10 +233,12 @@ public class StartLiveActivity extends LiveBaseActivity
       NetDao.createLive(StartLiveActivity.this, user, new OnCompleteListener<String>() {
         @Override
         public void onSuccess(String s) {
+          Log.e(TAG,"createLive,s=" + s);
           boolean success=false;
           pd.dismiss();
             if (s!=null){
              String id= ResultUtils.getEMResultFromJson(s);
+              Log.e(TAG,"createLive,id=" + id);
               if (id!=null){
                 success=true;
                 chatroomId=id;
@@ -273,7 +278,7 @@ public class StartLiveActivity extends LiveBaseActivity
       finish();
       return;
     }
-    long endTime=System.currentTimeMillis();
+    endTime=System.currentTimeMillis();
     long time=endTime-startTime-8*60*60*1000;
     SimpleDateFormat format=new SimpleDateFormat("HH:mm:ss");
     String t=format.format(new Date(time));
