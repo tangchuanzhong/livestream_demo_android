@@ -188,9 +188,9 @@ public class LiveListFragment extends Fragment {
             public void run() {
                 try {
                     isLoading = true;
-                    pagenum += 1;
+                    //pagenum += 1;
                     final EMCursorResult<EMChatRoom> result = EMClient.getInstance()
-                            .chatroomManager().fetchPublicChatRoomsFromServer(pagenum,cursor);
+                            .chatroomManager().fetchPublicChatRoomsFromServer(pagesize,cursor);
                     //get chat room list
                     final List<EMChatRoom> chatRooms = result.getData();
                     getActivity().runOnUiThread(new Runnable() {
@@ -254,6 +254,11 @@ public class LiveListFragment extends Fragment {
             roomList.add(liveRoom);
         }
         return roomList;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     static class LiveAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
