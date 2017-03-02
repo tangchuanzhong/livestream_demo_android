@@ -2,7 +2,8 @@ package cn.ucai.live;
 
 public interface I {
 
-	String REQUEST_CREATE_CHATROOM = "createLive";
+	String REQUEST_CREATE_CHATROOM = "live/createChatRoom";
+	String REQUEST_DELETE_CHATROOM = "live/deleteChatRoom" ;
 
 	public static interface User {
 		String TABLE_NAME							=		"t_superwechat_user";

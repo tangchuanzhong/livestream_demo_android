@@ -100,19 +100,19 @@ public class StartLiveActivity extends LiveBaseActivity
     if (id!=null&& !id.equals("")){
       liveId=id;
       chatroomId=id;
-      initEnv();
+     // initEnv();
     }else {
-
+        liveId=EMClient.getInstance().getCurrentUser();
 //    liveId = TestDataRepository.getLiveRoomId(EMClient.getInstance().getCurrentUser());
 //    chatroomId = TestDataRepository.getChatRoomId(EMClient.getInstance().getCurrentUser());
 //    anchorId = EMClient.getInstance().getCurrentUser();
 //    //usernameView.setText(anchorId);
-      pd = new ProgressDialog(StartLiveActivity.this);
-      pd.setMessage("创建直播...");
-      pd.show();
-      createLive();
+//      pd = new ProgressDialog(StartLiveActivity.this);
+//      pd.setMessage("创建直播...");
+//      pd.show();
+//      createLive();
     }
-//       initEnv();
+       initEnv();
   }
 
   public void initEnv() {
@@ -192,10 +192,14 @@ public class StartLiveActivity extends LiveBaseActivity
    */
   @OnClick(R.id.btn_start) void startLive() {
     //demo为了测试方便，只有指定的账号才能开启直播
-    if (liveId == null||liveId.equals("")) {
-      return;
+    if (chatroomId == null||chatroomId.equals("")) {
+      pd=new ProgressDialog(StartLiveActivity.this);
+      pd.setMessage("创建直播...");
+      pd.show();
+      createLive();
+    }else {
+      startLiveByChatRoom();
     }
-    startLiveByChatRoom();
   }
 
   private void startLiveByChatRoom(){
@@ -232,8 +236,8 @@ public class StartLiveActivity extends LiveBaseActivity
              String id= ResultUtils.getEMResultFromJson(s);
               if (id!=null){
                 success=true;
-                initLive(id);
-               // startLiveByChatRoom();
+                chatroomId=id;
+                startLiveByChatRoom();
               }
             }
           if (!success){
@@ -253,12 +257,12 @@ public class StartLiveActivity extends LiveBaseActivity
     }
   }
 
-  private void initLive(String id) {
-    liveId =id;
-    chatroomId = id;
-    //usernameView.setText(anchorId);
-    initEnv();
-  }
+//  private void initLive(String id) {
+//    liveId =id;
+//    chatroomId = id;
+//    //usernameView.setText(anchorId);
+//    initEnv();
+//  }
 
   /**
    * 关闭直播显示直播成果
@@ -269,7 +273,22 @@ public class StartLiveActivity extends LiveBaseActivity
       finish();
       return;
     }
+    removeLive();
     showConfirmCloseLayout();
+  }
+
+  private void removeLive() {
+      NetDao.removeLive(StartLiveActivity.this, chatroomId, new OnCompleteListener<String>() {
+        @Override
+        public void onSuccess(String s) {
+
+        }
+
+        @Override
+        public void onError(String error) {
+
+        }
+      });
   }
 
   @OnClick(R.id.img_bt_switch_voice) void toggleMicrophone(){
