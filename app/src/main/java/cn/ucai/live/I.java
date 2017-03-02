@@ -213,6 +213,8 @@ public interface I {
 
 	String BACK_MAIN_FROM_CHAT 				= 		"back_main_from_chat";
 
+	String REQUEST_GIVING_GIFT                =        "live/givingGifts";
+
 	int REQUESTCODE_PICK =1;
 	int REQUESTCODE_CUTTING=2;
 	int REQUESTCODE_MEMBER=3;
