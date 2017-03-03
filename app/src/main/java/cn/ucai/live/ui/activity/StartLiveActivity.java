@@ -27,6 +27,7 @@ import cn.ucai.live.data.NetDao;
 import cn.ucai.live.data.model.LiveRoom;
 import cn.ucai.live.data.model.LiveSettings;
 import cn.ucai.live.utils.CommonUtils;
+import cn.ucai.live.utils.L;
 import cn.ucai.live.utils.Log2FileUtil;
 import cn.ucai.live.utils.OnCompleteListener;
 import cn.ucai.live.utils.ResultUtils;
@@ -290,12 +291,12 @@ public class StartLiveActivity extends LiveBaseActivity
       NetDao.removeLive(StartLiveActivity.this, chatroomId, new OnCompleteListener<String>() {
         @Override
         public void onSuccess(String s) {
-
+            L.e("StartLiveActivity","removeLive,onSuccess=");
         }
 
         @Override
         public void onError(String error) {
-
+          L.e("StartLiveActivity","removeLive,onError="+error);
         }
       });
   }
