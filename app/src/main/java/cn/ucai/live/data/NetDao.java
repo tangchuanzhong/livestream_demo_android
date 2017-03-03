@@ -174,7 +174,7 @@ public class NetDao {
         OkHttpUtils<String> utils=new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_DELETE_CHATROOM)
                 .addParam("auth","1IFgE")
-                .addParam("chatroomId",chatroomId)
+                .addParam("chatRoomId",chatroomId)
                 .targetClass(String.class)
                 .execute(listener);
     }
