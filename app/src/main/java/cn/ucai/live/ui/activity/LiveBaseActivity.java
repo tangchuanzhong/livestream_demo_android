@@ -457,7 +457,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
         showPayMentTip(dialog,id);
       }
     });
-    dialog.show(getSupportFragmentManager(), "RoomUserDetailsDialog");
+    dialog.show(getSupportFragmentManager(), "RoomGiftListsDialog");
   }
 
   private void showPayMentTip(final RoomGiftListsDialog dialog,final int id){
