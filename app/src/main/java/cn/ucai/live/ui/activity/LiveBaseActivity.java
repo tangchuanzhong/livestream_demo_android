@@ -439,6 +439,11 @@ public abstract class LiveBaseActivity extends BaseActivity {
   }
 
   @OnClick(R.id.present_image) void onPresentImageClick() {
+    final RoomGiftListsDialog dialog =
+            RoomGiftListsDialog.newInstance();
+    dialog.show(getSupportFragmentManager(), "RoomUserDetailsDialog");
+  }
+  private void sendGiftMsg(){
     EMMessage message = EMMessage.createSendMessage(EMMessage.Type.CMD);
     message.setReceipt(chatroomId);
     EMCmdMessageBody cmdMessageBody = new EMCmdMessageBody(LiveConstants.CMD_GIFT);
@@ -449,7 +454,6 @@ public abstract class LiveBaseActivity extends BaseActivity {
     EMClient.getInstance().chatManager().sendMessage(message);
     showLeftGiftVeiw(message);
   }
-
   @OnClick(R.id.chat_image) void onChatImageClick() {
     ConversationListFragment fragment = ConversationListFragment.newInstance(anchorId, false);
     getSupportFragmentManager().beginTransaction()
