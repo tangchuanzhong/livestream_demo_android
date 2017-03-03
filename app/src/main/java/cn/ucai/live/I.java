@@ -4,6 +4,7 @@ public interface I {
 
 	String REQUEST_CREATE_CHATROOM = "live/createChatRoom";
 	String REQUEST_DELETE_CHATROOM = "live/deleteChatRoom" ;
+	String TYPE_GIFT ="cn.ucai.live.gift" ;
 
 	public static interface User {
 		String TABLE_NAME							=		"t_superwechat_user";
@@ -218,4 +219,5 @@ public interface I {
 	int REQUESTCODE_PICK =1;
 	int REQUESTCODE_CUTTING=2;
 	int REQUESTCODE_MEMBER=3;
+	int GIFT_COLUMN_COUNT=4;
 }
