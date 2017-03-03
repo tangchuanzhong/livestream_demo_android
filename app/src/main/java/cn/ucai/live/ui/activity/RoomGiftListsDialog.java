@@ -35,6 +35,7 @@ import cn.ucai.live.I;
 import cn.ucai.live.LiveHelper;
 import cn.ucai.live.R;
 import cn.ucai.live.data.model.Gift;
+import cn.ucai.live.utils.L;
 
 /**
  * Created by wei on 2016/7/25.
@@ -73,12 +74,13 @@ public class RoomGiftListsDialog extends DialogFragment {
         gm = new GridLayoutManager(getContext(), I.GIFT_COLUMN_COUNT);
         rvGift.setLayoutManager(gm);
         adapter=new GiftAdapter(getContext(),mGiftList);
-        rvGift.setAdapter(adapter);
         initData();
+        rvGift.setAdapter(adapter);
     }
 
     private void initData() {
         Map<Integer,Gift> map= LiveHelper.getInstance().getAppGiftList();
+        L.e("RoomGiftListDialog","map=" + map.size());
         Iterator<Map.Entry<Integer,Gift>> iterator=map.entrySet().iterator();
         while (iterator.hasNext()){
             mGiftList.add(iterator.next().getValue());

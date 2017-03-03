@@ -447,12 +447,13 @@ public abstract class LiveBaseActivity extends BaseActivity {
       @Override
       public void onClick(View v) {
         int id = (int) v.getTag();
-        sendGiftMsg(id);
+        sendGiftMsg(dialog,id);
       }
     });
     dialog.show(getSupportFragmentManager(), "RoomUserDetailsDialog");
   }
-  private void sendGiftMsg(int id){
+  private void sendGiftMsg(RoomGiftListsDialog dialog,int id){
+    dialog.dismiss();
     EMMessage message = EMMessage.createSendMessage(EMMessage.Type.CMD);
     message.setReceipt(chatroomId);
     EMCmdMessageBody cmdMessageBody = new EMCmdMessageBody(LiveConstants.CMD_GIFT);
