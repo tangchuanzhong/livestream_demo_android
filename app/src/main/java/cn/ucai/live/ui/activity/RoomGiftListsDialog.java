@@ -93,16 +93,11 @@ public class RoomGiftListsDialog extends DialogFragment {
         adapter.notifyDataSetChanged();
     }
 
-    private UserDetailsDialogListener dialogListener;
+    private View.OnClickListener mListener;
 
-    public void setUserDetailsDialogListener(UserDetailsDialogListener dialogListener) {
-        this.dialogListener = dialogListener;
+    public void setGiftOnClickListener(View.OnClickListener listener) {
+        this.mListener = listener;
     }
-
-    interface UserDetailsDialogListener {
-        void onMentionClick(String username);
-    }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -172,6 +167,7 @@ public class RoomGiftListsDialog extends DialogFragment {
             GiftViewHolder(View view) {
                 super(view);
                 ButterKnife.bind(this, view);
+                layoutGift.setOnClickListener(mListener);
             }
         }
     }
