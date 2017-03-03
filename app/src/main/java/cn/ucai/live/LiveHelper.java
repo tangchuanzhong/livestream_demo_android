@@ -200,14 +200,17 @@ public class LiveHelper {
             @Override
             public void onSuccess(String s) {
                 if (s!=null){
+                    L.e(TAG,"loadAllGift,s="+s);
                     Result result = ResultUtils.getListResultFromJson(s, Gift.class);
+                    L.e(TAG,"loadAllGift,result="+result);
                     if (result!=null && result.isRetMsg()){
                         List<Gift> list = (List<Gift>) result.getRetData();
                         if(list!=null && list.size()>0){
-                            L.e(TAG,"gift list="+list.size());
+                            L.e(TAG,"loadAllGift,list="+list.size());
                             Map<Integer, Gift> giftlist = new HashMap<>();
                             for (Gift gift : list) {
                                 giftlist.put(gift.getId(), gift);
+                                L.e(TAG,"loadAllGift,giftlist="+giftlist.size());
                             }
                             // save the contact list to cache
                             getAppGiftList().clear();
