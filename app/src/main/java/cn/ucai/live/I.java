@@ -6,6 +6,7 @@ public interface I {
 	String REQUEST_DELETE_CHATROOM = "live/deleteChatRoom" ;
 	String TYPE_GIFT ="cn.ucai.live.gift" ;
 	String REQUEST_ALL_GIFTS= "live/getAllGifts";
+	String REQUEST_BALANCE ="live/getBalance" ;
 
 	public static interface User {
 		String TABLE_NAME							=		"t_superwechat_user";

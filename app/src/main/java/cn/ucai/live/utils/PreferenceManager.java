@@ -59,6 +59,8 @@ public class PreferenceManager {
 	private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION = "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
 	private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION = "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
 	private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE = "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
+	private static String SHARED_KEY_PAYMENT_TIP = "SHARED_KEY_PAYMENT_TIP";
+	private static String SHARED_KEY_CURRENTUSER_CHANGE= "SHARED_KEY_CURRENTUSER_CHANGE";
 
 	@SuppressLint("CommitPrefEdits")
 	private PreferenceManager(Context cxt) {
@@ -222,6 +224,24 @@ public class PreferenceManager {
 		return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_AVATAR, null);
 	}
 
+	public void setPayMentTip(boolean tip) {
+		editor.putBoolean(SHARED_KEY_PAYMENT_TIP, tip);
+		editor.apply();
+	}
+
+	public Boolean getPayMentTip() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_PAYMENT_TIP, false);
+	}
+
+	public void setCurrentuserChange(int change) {
+		editor.putInt(SHARED_KEY_CURRENTUSER_CHANGE, change);
+		editor.apply();
+	}
+
+	public int setCurrentuserChange() {
+		return mSharedPreferences.getInt(SHARED_KEY_PAYMENT_TIP, 0);
+	}
+
 	public void setCurrentUserName(String username){
 		editor.putString(SHARED_KEY_CURRENTUSER_USERNAME, username);
 		editor.apply();
@@ -280,6 +300,7 @@ public class PreferenceManager {
 		editor.remove(SHARED_KEY_CURRENTUSER_NICK);
 		editor.remove(SHARED_KEY_CURRENTUSER_AVATAR);
 		editor.remove(SHARED_PAYMENT_TIP);
+		editor.remove(SHARED_KEY_CURRENTUSER_CHANGE);
 		editor.apply();
 	}
 

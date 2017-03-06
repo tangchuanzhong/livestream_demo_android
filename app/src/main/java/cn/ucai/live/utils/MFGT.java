@@ -2,12 +2,14 @@ package cn.ucai.live.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.User;
 
 import cn.ucai.live.I;
 import cn.ucai.live.R;
+import cn.ucai.live.ui.activity.ChangeActivity;
 import cn.ucai.live.ui.activity.LoginActivity;
 import cn.ucai.live.ui.activity.MainActivity;
 import cn.ucai.live.ui.activity.RegisterActivity;
@@ -43,5 +45,9 @@ public class MFGT {
     public static void gotoMain(Activity activity) {
         startActivity(activity, new Intent(activity,MainActivity.class)
         .putExtra(I.BACK_MAIN_FROM_CHAT,true));
+    }
+
+    public static void gotoChange(Activity activity) {
+        startActivity(activity,ChangeActivity.class);
     }
 }
