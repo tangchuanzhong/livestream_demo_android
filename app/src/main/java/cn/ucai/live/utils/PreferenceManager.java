@@ -238,8 +238,8 @@ public class PreferenceManager {
 		editor.apply();
 	}
 
-	public int setCurrentuserChange() {
-		return mSharedPreferences.getInt(SHARED_KEY_PAYMENT_TIP, 0);
+	public int getCurrentuserChange() {
+		return mSharedPreferences.getInt(SHARED_KEY_CURRENTUSER_CHANGE, 0);
 	}
 
 	public void setCurrentUserName(String username){
